@@ -4,6 +4,8 @@
 
 
 ![diagram](Full Stack E-Commerce MERN App.png)
+Full Stack E-Commerce MERN App.png
+
 
 Backend in express nodejs 
 frontend reactjs
