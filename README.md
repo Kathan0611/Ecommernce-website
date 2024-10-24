@@ -3,7 +3,7 @@
 #Full Stack E-Commerce MERN App
 
 
-![diagram][Full Stack E-Commerce MERN App.png]
+![diagram](Full Stack E-Commerce MERN App.png)
 
 Backend in express nodejs 
 frontend reactjs
