@@ -3,8 +3,7 @@
 #Full Stack E-Commerce MERN App
 
 
-![diagram](Full Stack E-Commerce MERN App.png)
-Full Stack E-Commerce MERN App.png
+![Full Stack E-Commerce MERN App](Full Stack E-Commerce MERN App.png)
 
 
 Backend in express nodejs 
