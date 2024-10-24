@@ -3,7 +3,7 @@
 #Full Stack E-Commerce MERN App
 
 
-![Full Stack E-Commerce MERN App](https://drive.google.com/drive/folders/1KmY74OYniEodtOVAjNGJv4628HghRbcQ)
+![Full Stack E-Commerce MERN App](https://github.com/Kathan0611/Ecommernce-website/blob/developer/Full%20Stack%20E-Commerce%20MERN%20App.png)
 
 
 Backend in express nodejs 
