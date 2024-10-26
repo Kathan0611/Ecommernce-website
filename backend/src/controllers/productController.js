@@ -237,9 +237,40 @@ exports.searchProduct=async(req,res)=>{
     catch(error){
         return res.status(500).json({
             error:true,
-            message:err.message,
+            message:error.message,
             success:false,
             statusCode:500
         })
+    }
+}
+
+exports.filterProductController=async(req,res)=>{
+    try{
+         const categoryList= req?.body?.category
+         const product= await productModel.find({
+            category:
+                {
+                    "$in":categoryList
+                }
+                
+         })
+        
+         return res.status(200).json({
+             error:false,
+             message:"Category List",
+             success:true,
+             data:product
+         })
+
+         
+    }
+    catch(error){
+        console.log(error.message)
+         return res.status(500).json({
+            error:true,
+            message:error.message,
+            success:false,
+            statusCode:500
+         })
     }
 }

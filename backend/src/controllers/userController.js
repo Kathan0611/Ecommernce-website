@@ -334,7 +334,7 @@ exports.addCartController=async(req,res)=>{
         
         const currentUser=req?.userId;
         console.log("hellow")
-        const isProductAvailable= await addToCartModel.findOne({productId:productId})
+        const isProductAvailable= await addToCartModel.findOne({productId:productId,userId:currentUser})
         console.log(isProductAvailable,"ll")
         if(isProductAvailable){
            return res.status(200).json({
@@ -400,10 +400,10 @@ exports.addToCartViewProduct=async(req,res)=>{
       const currentUser=req.userId;
       
       const allProduct= await addToCartModel.find({
-        userId:currentUser,
-        
-      }).populate('productId')
+        userId:currentUser
+      }).populate('userId').populate('productId')
 
+        console.log("allProduct",allProduct)
       return res.status(200).json({
          error:false,
          success:true,

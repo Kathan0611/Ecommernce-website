@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const authController = require('../controllers/userController');
 const productController=require('../controllers/productController');
+const orderController=require('../controllers/orderController');
 const {verifyToken}=require('./../middleware/authmiddleware');
 
 
@@ -22,6 +23,7 @@ router.get("/get-categoryProduct",productController.getCategoryProduct)
 router.post('/category-product',productController.getCategoryWiseProduct)
 router.post('/product-details',productController.getProductDetails)
 router.get('/search',productController.searchProduct)
+router.post('/filter-product',productController.filterProductController)
 
 //user add To cart
 router.post('/addToCart',verifyToken,authController.addCartController)
@@ -29,6 +31,11 @@ router.get('/countAddToCartProduct',verifyToken,authController.countAddToCart)
 router.get('/view-card-product',verifyToken,authController.addToCartViewProduct)
 router.post('/update-cart-product',verifyToken,authController.updateAddToCartProduct)
 router.post('/delete-cart-product',verifyToken,authController.deleteAddToCartProduct)
+
+router.post('/checkout',verifyToken,orderController.paymentController);
+router.post('/verify-payment',orderController.paymentverification)
+
+
 
 module.exports = router;
 
