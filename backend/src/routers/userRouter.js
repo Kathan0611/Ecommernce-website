@@ -34,6 +34,9 @@ router.post('/delete-cart-product',verifyToken,authController.deleteAddToCartPro
 
 router.post('/checkout',verifyToken,orderController.paymentController);
 router.post('/verify-payment',orderController.paymentverification)
+router.post('/fetchOrder',verifyToken,orderController.fetchAllOrder);
+router.get('/order-list',verifyToken,orderController.getAllOrderList);
+
 
 
 

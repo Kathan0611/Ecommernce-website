@@ -347,7 +347,7 @@ exports.addCartController=async(req,res)=>{
         const payload={
             productId:productId,
             quantity:1,
-            userId:'6706c24189e2aedb6094d236',
+            userId:currentUser,
         }
 
         const newAddToCart= new addToCartModel(payload);
