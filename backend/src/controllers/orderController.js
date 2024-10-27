@@ -100,11 +100,11 @@ exports.paymentverification=async(req,res)=>{
        }
 }
 
-exports.getkey=async(req,res)=>{
-  return res.status(200).json({
-    key:process.env.SECRET_KEY
-  })
-}
+// exports.getkey=async(req,res)=>{
+//   return res.status(200).json({
+//     key:process.env.SECRET_KEY
+//   })
+// }
 
 
 exports.fetchAllOrder=async(req,res)=>

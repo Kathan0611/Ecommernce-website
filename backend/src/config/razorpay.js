@@ -2,8 +2,8 @@ const Razorpay = require('razorpay');
 
 
 const razorpayInstance=new Razorpay({
-    key_id:process.env.key_id,
-    key_secret:process.env.key_secret
+    key_id:process.env.Key_Id,
+    key_secret:process.env.Key_Secret
 });
 
 module.exports=razorpayInstance;
