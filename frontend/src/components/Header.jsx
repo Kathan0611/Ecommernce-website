@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import Logo from './Logo'
 import { GrSearch } from "react-icons/gr";
 import { FaRegCircleUser } from "react-icons/fa6";
@@ -11,16 +11,21 @@ import { toast } from 'react-toastify'
 import { setUserDetails } from '../store/userSlice';
 import ROLE from '../common/role';
 import Context from '../context';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 const Header = () => {
   const user = useSelector(state => state?.user?.user)
   const dispatch = useDispatch()
   const [menuDisplay,setMenuDisplay] = useState(false)
+  const searchInputRef =useRef(null);
+
   const context = useContext(Context)
+  
   const navigate = useNavigate()
   const searchInput = useLocation()
   const URLSearch = new URLSearchParams(searchInput?.search)
   const searchQuery = URLSearch.getAll("q")
+  
   const [search,setSearch] = useState(searchQuery)
 
   const handleLogout = async() => {
@@ -43,6 +48,10 @@ const Header = () => {
 
   }
 
+  useHotkeys('ctrl+k', (event) => {
+    event.preventDefault(); 
+    searchInputRef.current.focus();
+  });
   const handleSearch = (e)=>{
     const { value } = e.target
     setSearch(value)
@@ -63,7 +72,7 @@ const Header = () => {
             </div>
 
             <div className='hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2'>
-                <input type='text' placeholder='search product here...' className='w-full outline-none' onChange={handleSearch} value={search}/>
+                <input type='text' placeholder='search product here....' className='w-full outline-none' onChange={handleSearch} value={search} ref={searchInputRef}/>
                 <div className='text-lg min-w-[50px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white'>
                   <GrSearch />
                 </div>
@@ -78,8 +87,8 @@ const Header = () => {
                     user?._id && (
                       <div className='text-3xl cursor-pointer relative flex justify-center' onClick={()=>setMenuDisplay(preve => !preve)}>
                         {
-                          user?.profilePic ? (
-                            <img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name} />
+                          user?.ProfilePic ? (
+                            <img src={user?.ProfilePic} className='w-10 h-10 rounded-full' alt={user?.name} />
                           ) : (
                             <FaRegCircleUser/>
                           )
@@ -98,6 +107,7 @@ const Header = () => {
                               <Link to={"/admin-panel/all-products"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={()=>setMenuDisplay(preve => !preve)}>Admin Panel</Link>
                             )
                           }
+                          <Link to={'/order'} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={()=>setMenuDisplay(preve => !preve)}>Order</Link>
                          
                         </nav>
                       </div>

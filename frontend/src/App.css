@@ -15,7 +15,12 @@
 }
 .scrollbar-none::-webkit-scrollbar{
   display: none;
+  /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  gap: 20px;
+  padding: 20px; */
 }
+
+ /* Space around the container */
 /* .App-logo {
   height: 40vmin;
   pointer-events: none;

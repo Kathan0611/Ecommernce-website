@@ -50,11 +50,12 @@ const ProductDetails = () => {
     const dataReponse = await response.json()
 
     setData(dataReponse?.data)
+    console.log(dataReponse?.data?.productImage[0],"ll")
     setActiveImage(dataReponse?.data?.productImage[0])
-
+    
   }
 
-  console.log("data",data)
+  console.log("data----",data)
 
   useEffect(()=>{
     fetchProductDetails()
@@ -85,7 +86,7 @@ const ProductDetails = () => {
 
   const handleAddToCart = async(e,id) =>{
     await addToCart(e,id)
-    // fetchUserAddToCart()
+    fetchUserAddToCart()
   }
 
   const handleBuyProduct = async(e,id)=>{
@@ -143,6 +144,7 @@ const ProductDetails = () => {
                     ) : (
                       <div className='flex gap-2 lg:flex-col overflow-scroll scrollbar-none h-full'>
                         {
+                          
                           data?.productImage?.map((imgURL,index) =>{
                             return(
                               <div className='h-20 w-20 bg-slate-200 rounded p-1' key={imgURL}>

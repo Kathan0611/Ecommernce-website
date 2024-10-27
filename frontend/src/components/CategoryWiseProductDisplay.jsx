@@ -39,12 +39,12 @@ const CategroyWiseProductDisplay = ({category, heading}) => {
 
 
   return (
-    <div className='container mx-auto px-4 my-6 relative'>
+    <div className='container mx-auto  px-4  relative'>
 
             <h2 className='text-2xl font-semibold py-4'>{heading}</h2>
 
                 
-           <div className='grid grid-cols-[repeat(auto-fit,minmax(300px,320px))] justify-between md:gap-6 overflow-x-scroll scrollbar-none transition-all'>
+           <div className='grid grid-cols-[repeat(auto-fill,minmax(300px,320px))]  md:gap-8 transition-all'>
            {
 
                 loading ? (
@@ -68,11 +68,11 @@ const CategroyWiseProductDisplay = ({category, heading}) => {
                 ) : (
                     data.map((product,index)=>{
                         return(
-                            <Link to={"/product/"+product?._id} className='w-full min-w-[280px]  md:min-w-[320px] max-w-[280px] md:max-w-[320px]  bg-white rounded-sm shadow ' onClick={scrollTop}>
+                            <Link to={"/product/"+product?._id} className='w-full min-w-[280px]  md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow shadow-slate-400 ' onClick={scrollTop}>
                                 <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>
-                                    <img src={product?.productId?.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply'/>
+                                    <img src={product?.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply'/>
                                 </div>
-                                <div className='p-4 grid gap-3'>
+                                <div className='p-4 grid gap-2'>
                                     <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black'>{product?.productName}</h2>
                                     <p className='capitalize text-slate-500'>{product?.category}</p>
                                     <div className='flex gap-3'>

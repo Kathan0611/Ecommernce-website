@@ -1,8 +1,4 @@
-
-
-
-
-const backendDomain='http://localhost:5000'
+const backendDomain='https://ecommernce-website.onrender.com'
 const SummaryApi = {
      Signup:{
         url:`${backendDomain}/api/v1/signup`,
@@ -76,6 +72,26 @@ const SummaryApi = {
      searchProduct:{
       url:`${backendDomain}/api/v1/search`,
       method:'get'
+     },
+     filterProduct:{
+      url:`${backendDomain}/api/v1/filter-product`,
+      method:'post'
+     },
+     payment:{
+      url:`${backendDomain}/api/v1/checkout`,
+      method:'post'
+     },
+     verifyPayment:{
+      url:`${backendDomain}/api/v1/verify-payment`,
+      method:'post'
+     },
+     getOrder:{
+      url:`${backendDomain}/api/v1/order-list`,
+      method:'get'
+     },
+     fetchOrder:{
+      url:`${backendDomain}/api/v1/fetchOrder`,
+      method:'post'
      }
     
 }

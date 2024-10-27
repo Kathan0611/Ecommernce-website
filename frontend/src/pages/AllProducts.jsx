@@ -30,7 +30,7 @@ const AllProducts = () => {
       <h2 className='font-bold text-lg'>All Product</h2>
       <button className='border-2 py-1 px-4 rounded-full border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all ' onClick={()=>setOpenUploadProduct(true)}>Upload Product</button>
     </div>
-    <div className='flex items-center flex-wrap gap-5 py-4 h-[calc(100vh-190px)] overflow-y-scroll'>
+    <div className='flex items-center flex-wrap gap-5 py-6 px-1 pl-4 h-[calc(100vh-190px)] overflow-y-scroll'>
      { 
        allProduct.map((product,index)=>{
              return (

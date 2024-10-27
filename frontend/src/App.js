@@ -38,11 +38,16 @@ function App ()
   const fetchUserAddToCart = async()=>{
     const dataResponse = await fetch(SummaryApi.addToCartProductCount.url,{
       method : SummaryApi.addToCartProductCount.method,
-      credentials : 'include'
+      credentials :'include',
+       headers:{
+        'content-type':'application.json'
+       }
     })
-
+    console.log("jay hanumaji")
+       
     const dataApi = await dataResponse.json()
     setCartProductCount(dataApi?.data?.count)
+    console.log(dataApi,"dataApi")
   }
 
   useEffect(()=>{

@@ -3,6 +3,8 @@ import SummaryApi from '../common'
 import Context from '../context'
 import displayINRCurrency from '../helpers/displayCurrency'
 import { MdDelete } from "react-icons/md";
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Cart = () => {
     const [data,setData] = useState([])
@@ -10,12 +12,13 @@ const Cart = () => {
     const { fetchUserAddToCart } = useContext(Context);
     const loadingCart = new Array(4).fill(null)
 
+    const navigte=useNavigate();
 
     const fetchData = async() =>{
         
         const response = await fetch(SummaryApi.addToCartViewProduct.url,{
             method : SummaryApi.addToCartViewProduct.method,
-            credentials : 'include',
+            credentials :'include',
             headers : {
                 "content-type" : 'application/json'
             },
@@ -23,7 +26,7 @@ const Cart = () => {
        
 
         const responseData = await response.json()
-
+        console.log(responseData.data,"lll")
         if(responseData.success){
             setData(responseData.data)
         }
@@ -112,6 +115,96 @@ const Cart = () => {
             fetchUserAddToCart()
         }
     }
+    const handlePayment=async()=>{
+        try{
+            const response= await fetch(SummaryApi.payment.url,{
+                method:SummaryApi.payment.method,
+                credentials:'include',
+                headers : {
+                    "content-type" : 'application/json'
+                },
+                body:JSON.stringify({
+                    cartItems:data
+                })
+            })
+            const repsonseData= await response.json();
+            console.log("payment response",repsonseData.data)
+    
+            if(repsonseData?.data?.order_id){
+    
+                const options={
+                    key:repsonseData?.data?.key_Id,
+                    amount:repsonseData?.data?.amount,
+                    currency:'INR',
+                    name:'Kathan Adalaja',
+                    description:'Test Transaction',
+                    order_id:repsonseData?.data?.order_id,
+                    handler:async (response)=>{
+                    const{razorpay_order_id,razorpay_payment_id,razorpay_signature}=response;
+                    console.log('Response of Payment',response)
+                    
+                    const verifyResponse= await fetch(SummaryApi.verifyPayment.url,{
+                        method:SummaryApi.verifyPayment.method,
+                        headers : {
+                            "content-type" : 'application/json'
+                        },
+                        body:JSON.stringify({
+                            razorpay_order_id,razorpay_payment_id,razorpay_signature
+                        })
+                           
+                       });
+                    
+                        const verify=await verifyResponse.json();
+                        console.log(verify,"verifypayment")
+
+                       const fetchOrders= await fetch(SummaryApi.fetchOrder.url,{
+                        method:SummaryApi.fetchOrder.method,
+                        credentials:'include',
+                        headers:{
+                            "content-type":"application/json"
+                        },
+                        body:JSON.stringify({
+                            razorpay_payment_id:razorpay_payment_id
+                        })
+                       }) 
+
+                       const fetchOrder=await fetchOrders.json();
+                       console.log(fetchOrder,"ll")
+                       if(fetchOrder?.success){
+                         alert("Payment fetch Successfully")
+                       }
+                       
+                       if(verify?.success){
+                          alert('Payment verified successfully')
+                          navigte('/success')
+                        
+                       }
+                       else{
+                           alert('Payment verfication failed');
+                       }
+                       
+                    },
+                    prefill:{
+                       name:'Kathan Adalaja',
+                       email:'adalajakathan06@gmail.com',
+                       contact:'9773257728',
+    
+                    },
+                    theme:{
+                        color:'#F37254'
+                    },
+    
+                };
+                 const rzpl= new window.Razorpay(options);
+                 rzpl.open();
+        }
+      
+        } catch(error){
+             console.error(error);
+             alert('Failed to intial payment');
+        }
+        
+    }
 
     const totalQty = data.reduce((previousValue,currentValue)=> previousValue + currentValue.quantity,0)
     const totalPrice = data.reduce((preve,curr)=> preve + (curr.quantity * curr?.productId?.sellingPrice) ,0)
@@ -154,7 +247,7 @@ const Cart = () => {
                                     </div>
 
                                     <h2 className='text-lg lg:text-xl text-ellipsis line-clamp-1'>{product?.productId?.productName}</h2>
-                                    <p className='capitalize text-slate-500'>{product?.productId.category}</p>
+                                    <p className='capitalize text-slate-500'>{product?.productId?.category}</p>
                                     <div className='flex items-center justify-between'>
                                             <p className='text-red-600 font-medium text-lg'>{displayINRCurrency(product?.productId?.sellingPrice)}</p>
                                             <p className='text-slate-600 font-semibold text-lg'>{displayINRCurrency(product?.productId?.sellingPrice  * product?.quantity)}</p>
@@ -174,7 +267,9 @@ const Cart = () => {
 
 
                 {/*summary  */}
-                <div className='mt-5 lg:mt-0 w-full max-w-sm'>
+                {
+                    data[0] && (
+                        <div className='mt-5 lg:mt-0 w-full max-w-sm'>
                         {
                             loading ? (
                             <div className='h-36 bg-slate-200 border border-slate-300 animate-pulse'>
@@ -193,12 +288,15 @@ const Cart = () => {
                                         <p>{displayINRCurrency(totalPrice)}</p>    
                                     </div>
 
-                                    <button className='bg-blue-600 p-2 text-white w-full mt-2'>Payment</button>
+                                    <button className='bg-blue-600 p-2 text-white w-full mt-2' onClick={handlePayment}>Payment</button>
 
                                 </div>
                             )
                         }
                 </div>
+                     )
+                }
+                
         </div>
     </div>
   )
