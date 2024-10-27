@@ -1,4 +1,4 @@
-const backendDomain=`${process.env.Backend_Url}`
+const backendDomain=process.env.Backend_Url
 const SummaryApi = {
      Signup:{
         url:`${backendDomain}/api/v1/signup`,
