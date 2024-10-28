@@ -231,7 +231,13 @@ exports.logout=async(req,res)=>{
     try{
          if(res?.clearCookie){
 
-          res.clearCookie('token') 
+           const tokenOptions={
+            httpOnly:true,
+            secure:true,
+            sameSite:'None'
+           }
+           
+          res.clearCookie('token',tokenOptions) 
 
           res.status(200).json({
             error:false,
