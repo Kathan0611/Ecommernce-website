@@ -1,4 +1,4 @@
-const backendDomain=`https://ecommernce-website.onrender.com`
+const backendDomain='https://ecommernce-website.onrender.com'
 const SummaryApi = {
      Signup:{
         url:`${backendDomain}/api/v1/signup`,
@@ -41,7 +41,7 @@ const SummaryApi = {
       method:'get'
      },
      categoryWiseproduct:{
-      url:`https://ecommernce-website.onrender.com/api/v1/category-product`,
+      url:`${backendDomain}/api/v1/category-product`,
       method:'post'
      },
      productDetails:
