@@ -29,6 +29,8 @@ const CategroyWiseProductDisplay = ({category, heading}) => {
 
         console.log("horizontal data",categoryProduct.data)
         setData(categoryProduct?.data)
+
+        
     }
 
     useEffect(()=>{

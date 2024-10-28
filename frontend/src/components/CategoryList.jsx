@@ -15,8 +15,7 @@ const CategoryList = () => {
             method:SummaryApi.categoryProduct.method
         })
         setloading(false)
-        console.log(SummaryApi)
-        console.log(categoryProduct.url)
+        
         const dataResponse=await repsonse.json();
         setCategoryProduct(dataResponse.data);
     }

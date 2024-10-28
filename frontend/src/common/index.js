@@ -41,7 +41,7 @@ const SummaryApi = {
       method:'get'
      },
      categoryWiseproduct:{
-      url:`${backendDomain}/api/v1/category-product`,
+      url:`https://ecommernce-website.onrender.com/api/v1/category-product`,
       method:'post'
      },
      productDetails:
