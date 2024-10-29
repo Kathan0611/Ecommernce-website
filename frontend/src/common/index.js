@@ -1,4 +1,4 @@
-const backendDomain='https://ecommernce-website.onrender.com'
+const backendDomain=`${process.env.REACT_APP_BACKEND_URL}`;
 const SummaryApi = {
      Signup:{
         url:`${backendDomain}/api/v1/signup`,

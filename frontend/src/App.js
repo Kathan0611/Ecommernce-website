@@ -43,7 +43,7 @@ function App ()
         'content-type':'application.json'
        }
     })
-    console.log("jay hanumaji")
+
        
     const dataApi = await dataResponse.json()
     setCartProductCount(dataApi?.data?.count)
