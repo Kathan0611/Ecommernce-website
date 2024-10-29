@@ -1,4 +1,5 @@
-const backendDomain=`${process.env.REACT_APP_BACKEND_URL}`;
+const backendDomain=process.env.REACT_APP_BACKEND_URL;
+console.log(process.env)
 const SummaryApi = {
      Signup:{
         url:`${backendDomain}/api/v1/signup`,
