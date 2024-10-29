@@ -15,10 +15,18 @@ const UserSchema = mongoose.Schema({
   ProfilePic:{
     type:String,
   },
+  otp:{
+    type:String,
+    required:true
+  },
+  otpExpiration:{ 
+    type:Date,
+    required:true
+  },
   role:{
     type:String,
     required:true,
-    default:'admin'
+    default:'GENERAL'
   }
 },{
     timestampes:true

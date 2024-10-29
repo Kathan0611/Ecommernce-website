@@ -3,11 +3,15 @@ const router = express.Router();
 const authController = require('../controllers/userController');
 const productController=require('../controllers/productController');
 const orderController=require('../controllers/orderController');
+const validateSchema=require('../utils/validateSchema');
+const validate=require('../middleware/validationmiddleware');
 const {verifyToken}=require('./../middleware/authmiddleware');
 
 
-router.post('/signup', authController.signup);
-router.post('/login', authController.login);
+router.post('/signup',validate(validateSchema.registerSchema),authController.signup);
+router.post('/login',validate(validateSchema.loginSchema), authController.login);
+router.post('/forgotPassword',validate(validateSchema.forgotpassword),authController.forgotPassword);  
+router.post('/resetPassword',validate(validateSchema.resetPassword),authController.resetPassword);
 router.get('/userDetails',verifyToken,authController.userDetails);
 router.get('/logout',authController.logout);
 

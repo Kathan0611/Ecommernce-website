@@ -2,19 +2,14 @@ const usermodel=require('../models/userModel');
 const jwt=require('jsonwebtoken')
 const bcrypt=require('bcrypt');
 const path=require('path');
+const {randomInt}=require('crypto');
 const fs=require('fs');
+const {sendOtpMail}=require('./../utils/nodemailer');
 const addToCartModel = require('../models/cartProduct');
 require('dotenv').config()
-const cloudinary = require('cloudinary').v2 
-
-cloudinary.config({ 
-  cloud_name: process.env.cloud_name, 
-  api_key: process.env.api_key, 
-  api_secret: process.env.api_secret 
-});
 
 
-// const filePath=path.resolve(__dirname,'../uploads/'+req.file.filename)
+
 
 
 exports.signup = async (req, res) => {
@@ -193,6 +188,104 @@ exports.login = async (req, res) => {
     }
   };
   
+
+
+  exports.forgotPassword=async (req,res)=>{
+    try{
+      const {email}=req.body;
+      console.log(email,"lll")
+
+      const findEmailSender= await  usermodel.findOne({email:email});
+       
+      if(!findEmailSender){
+         return res.status(404).json({
+             error:true,
+             success:false,
+             statusCode:404,
+             message:'User not found'
+         })
+      }
+      else{
+
+         const otp = randomInt(100000, 1000000);
+         const otpExpiration = Date.now() + 60000
+         console.log(otpExpiration) 
+         const updated = await usermodel.updateOne(
+             {
+                email:email
+             },          
+             { $set:{
+             
+              otp: otp, 
+              otpExpiration: otpExpiration, 
+            }, } ,{new:true});
+
+           console.log(updated,"updated-otp");
+  
+          await sendOtpMail(email,otp)
+  
+          return res.status(200).json({
+             error:false,
+             statusCode:200,
+             success:true,
+             message:'Successfully Sent OTP',
+             otp:otp,
+          })
+  
+         
+      }
+
+    }
+    catch(error){
+      return res.status(500).json({
+        error:true,
+        message:'server error',
+        success:false
+      })
+    }
+   
+}
+
+//resetPassword  of User api
+exports.resetPassword =async (req, res) => {
+    try{
+
+    const { newPassword,otp } = req.body;
+   
+   
+    const user=await usermodel.findOne({otp:otp});
+
+
+    const salt = await bcrypt.genSaltSync(10);
+    const hashedPassword = await bcrypt.hashSync(newPassword, salt);
+      
+    const updateOtp={
+        otp:null,
+        otpExpiration:null,
+        password:hashedPassword
+    }
+ 
+    const userupadte= await usermodel.findByIdAndUpdate({_id:user.id},updateOtp)
+      return res.status(200).json({
+        error: false,
+        statusCode: 200,
+        success:true,
+        data: "Password reset successful",
+        userupadte
+      })
+
+  }
+  catch(error){
+    console.log(error.message)
+     return res.status(500).json({
+       error:true,
+       success:false,
+       message:"Internal Server"
+     })
+  }
+  
+ }
+
 exports.userDetails=async (req,res)=>{
   try{
       console.log(req.userId,"jee");
