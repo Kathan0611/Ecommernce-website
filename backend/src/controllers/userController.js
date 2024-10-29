@@ -170,7 +170,7 @@ exports.login = async (req, res) => {
           }
 
           const tokenOptions={
-            sameSite:true,
+            sameSite:'None',
             httpOnly:true,
             secure:true
           }
