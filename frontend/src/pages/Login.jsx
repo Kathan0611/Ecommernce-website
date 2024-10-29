@@ -8,8 +8,6 @@ import { toast } from 'react-toastify'
 import Context from '../context/index';
 
 
-
-
 const Login = () => {
 
     const[showPassword,setPassword]=useState(false);
@@ -29,7 +27,7 @@ const Login = () => {
       }
       })
     }
-    
+
     const navigate=useNavigate();
     const {fetchUserDetails,fetchUserAddToCart}=useContext(Context);
 

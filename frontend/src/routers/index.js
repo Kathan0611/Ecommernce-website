@@ -13,6 +13,8 @@ import SearchProduct from '../pages/SearchProduct';
 import OrderPage from '../pages/OrderPage';
 import Success from '../pages/Success';
 import Cancel from '../pages/Cancel';
+import  ForgotPassword  from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
 
 const routers= createBrowserRouter([{
     path:"/",
@@ -29,6 +31,14 @@ const routers= createBrowserRouter([{
     {
         path:'Signup',
         element:<Signup/>
+    },
+    {
+        path:'forgot-password',
+        element:<ForgotPassword/>
+    },
+    {
+       path:'reset-password',
+       element:<ResetPassword/>
     },
     {
         path:'userDetails',

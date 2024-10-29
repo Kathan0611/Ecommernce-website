@@ -1,4 +1,6 @@
-const backendDomain=`${process.env.REACT_APP_BACKEND_URL}`;
+import ResetPassword from "../pages/ResetPassword";
+
+const backendDomain='http://localhost:5000';
 const SummaryApi = {
      Signup:{
         url:`${backendDomain}/api/v1/signup`,
@@ -8,6 +10,14 @@ const SummaryApi = {
        url:`${backendDomain}/api/v1/login`,
        method:'post'
      },
+     ForgotPassword:{
+      url:`${backendDomain}/api/v1//forgotPassword`,
+      method:'post'
+    },
+     ResetPassword:{
+      url:`${backendDomain}/api/v1/resetPassword`,
+      method:'post'
+    },
      current_user:{
       url:`${backendDomain}/api/v1/userdetails`,
       method:'get'
