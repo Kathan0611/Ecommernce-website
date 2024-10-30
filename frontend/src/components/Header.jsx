@@ -99,20 +99,31 @@ const Header = () => {
                   
                   
                   {
-                    menuDisplay && (
-                      <div className='absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded' >
-                        <nav>
-                          {
-                            user?.role === ROLE.ADMIN && (
-                              <Link to={"/admin-panel/all-products"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={()=>setMenuDisplay(preve => !preve)}>Admin Panel</Link>
-                            )
-                          }
-                          <Link to={'/order'} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={()=>setMenuDisplay(preve => !preve)}>Order</Link>
-                         
-                        </nav>
-                      </div>
-                    )
-                  }
+  menuDisplay && (  
+    <div className='absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded'>
+      <nav className='flex flex-col md:flex-col md:space-x-4'>
+        {user?.role === ROLE.ADMIN && (
+          <Link
+            to={"/admin-panel/all-products"}
+            className='whitespace-nowrap hover:bg-slate-100 p-2 rounded transition duration-200'
+            onClick={() => setMenuDisplay(prev => !prev)}
+          >
+            Admin Panel
+          </Link>
+        )}
+        
+        <Link
+          to={'/order'}
+          className='whitespace-nowrap hover:bg-slate-100 p-2 rounded transition duration-200'
+          onClick={() => setMenuDisplay(prev => !prev)}
+        >
+          Order
+        </Link>
+      </nav>
+    </div>
+  )
+}
+
                  
                 </div>
 

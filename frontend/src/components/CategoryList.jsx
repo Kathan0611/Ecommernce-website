@@ -3,6 +3,8 @@ import SummaryApi from '../common';
 import { Link } from 'react-router-dom';
 
 const CategoryList = () => {
+    
+   
 
     const [categoryProduct,setCategoryProduct]=useState([]);
     const[loading,setloading]=useState(false)
@@ -20,9 +22,12 @@ const CategoryList = () => {
         setCategoryProduct(dataResponse.data);
     }
 
+    
     useEffect(()=>{
         fetchCategoryProduct()
     },[])
+
+   
   return (
     <div className='container mx-auto p-4'>
         <div className='flex items-center gap-4 justify-between overflow-scroll scrollbar-none'>
@@ -37,9 +42,7 @@ const CategoryList = () => {
                                 </div>
                         )
                     }) 
-                // <div className='h-10 w-16 md:w-20 md:h-20 rounded-full overflow-hidden bg-slate-200'>
-
-                //     </div>
+               
             ):(
                 categoryProduct.map((product,index)=>{
                     return(
