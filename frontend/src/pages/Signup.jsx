@@ -49,13 +49,14 @@ const SignUp = () => {
       e.preventDefault()
 
       if(data.password === data.confirmPassword){
-
+        const { confirmPassword, ...signupData } = data;
+        console.log(signupData)
         const dataResponse = await fetch(SummaryApi.Signup.url,{
             method : SummaryApi.Signup.method,
             headers : {
                 "content-type" : "application/json"
             },
-            body : JSON.stringify(data)
+            body : JSON.stringify(signupData)
           })
     
           const dataApi = await dataResponse.json()
@@ -105,7 +106,7 @@ const SignUp = () => {
                                       name='name'
                                       value={data.name}
                                       onChange={handleOnChange}
-                                      required
+                                    
                                       className='w-full h-full outline-none bg-transparent'/>
                               </div>
                           </div>
@@ -118,7 +119,7 @@ const SignUp = () => {
                                     name='email'
                                     value={data.email}
                                     onChange={handleOnChange}
-                                    required
+                                
                                     className='w-full h-full outline-none bg-transparent'/>
                             </div>
                         </div>
@@ -132,7 +133,7 @@ const SignUp = () => {
                                     value={data.password}
                                     name='password' 
                                     onChange={handleOnChange}
-                                    required
+                                
                                     className='w-full h-full outline-none bg-transparent'/>
                                 <div className='cursor-pointer text-xl' onClick={()=>setShowPassword((preve)=>!preve)}>
                                     <span>
@@ -159,7 +160,6 @@ const SignUp = () => {
                                     value={data.confirmPassword}
                                     name='confirmPassword' 
                                     onChange={handleOnChange}
-                                    required
                                     className='w-full h-full outline-none bg-transparent'/>
 
                                 <div className='cursor-pointer text-xl' onClick={()=>setShowConfirmPassword((preve)=>!preve)}>
