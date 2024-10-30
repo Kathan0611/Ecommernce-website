@@ -9,6 +9,7 @@ const ProductSchema= mongoose.Schema({
     },
     category:{
        type:String,
+       index:true
     },
     productImage:{
         type:Array,
