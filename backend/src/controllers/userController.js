@@ -7,7 +7,14 @@ const fs=require('fs');
 const {sendOtpMail}=require('./../utils/nodemailer');
 const addToCartModel = require('../models/cartProduct');
 require('dotenv').config()
+const cloudinary = require('cloudinary').v2 
 
+
+cloudinary.config({
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret 
+});
 
 
 
@@ -18,9 +25,9 @@ exports.signup = async (req, res) => {
 
       const { email, name, password,ProfilePic} = req.body;
 
-      console.log(email,name,password,ProfilePic,"data")
+      console.log(req.body,"data")
       let uploadResult;
-      if (!email || !name || !password) {
+      if (!email || !name || !password ) {
               return res.status(400).json({message:"please fill required filed"})
       }
 
@@ -80,7 +87,10 @@ exports.signup = async (req, res) => {
           const existUser= await usermodel.findOne({email:email});
            
           if(existUser){
-             return res.status(400).json({message:'User alreday exist'})
+             return res.status(400).json({
+              error:true,
+              success:false,
+              message:'User alreday exist'})
            }
           
            const newUser = await usermodel.create({

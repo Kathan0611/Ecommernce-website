@@ -17,11 +17,11 @@ const UserSchema = mongoose.Schema({
   },
   otp:{
     type:String,
-    required:true
+   
   },
   otpExpiration:{ 
     type:Date,
-    required:true
+   
   },
   role:{
     type:String,
