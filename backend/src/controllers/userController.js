@@ -21,10 +21,7 @@ cloudinary.config({
 
 exports.signup = async (req, res) => {
     try {
-      
-
       const { email, name, password,ProfilePic} = req.body;
-
       console.log(req.body,"data")
       let uploadResult;
       if (!email || !name || !password ) {
@@ -39,12 +36,14 @@ exports.signup = async (req, res) => {
           console.log(decode,"hellow")
           const filePath=path.resolve(__dirname,'../uploads/'+ `${Date.now()}.png`)
           console.log(filePath,"filePath")
-          fs.writeFileSync(filePath, decode);
+         
 
           if(!filePath){
               return 'localfilePath not exist'
             }
-    
+
+            fs.writeFileSync(filePath, decode);
+
              uploadResult = await cloudinary.uploader.upload(
             filePath, {
                public_id: 'user',
@@ -103,6 +102,7 @@ exports.signup = async (req, res) => {
 
         return res.status(201).json({
           error:false,
+          success:true,
           status: 201,
           message: "Signup Successfully",
           data: {
